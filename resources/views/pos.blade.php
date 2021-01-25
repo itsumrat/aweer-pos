@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>vuepos</title>
+    <title>POS</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -28,8 +28,8 @@
     </nav>
     <div id="mother">
       <div class="container">
-        
-      
+
+
       <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#myModal">Add Customer</button>
       </div>
       <app></app>
@@ -54,7 +54,7 @@
 
         </div>
       </div>
-    
+
     </div>
     <script src="{{asset('js/app.js')}}"></script>
   </body>

@@ -21,9 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['auth', 'verified']], function() {
-		Route::resource('roles', 'Backend\RoleController');
-		Route::get('roles-permissions', 'Backend\RoleController@getRolesPermission')->name('role.permission');
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::resource('roles', 'Backend\RoleController');
+    Route::get('roles-permissions', 'Backend\RoleController@getRolesPermission')->name('role.permission');
     Route::resource('permissions', 'Backend\PermissionController');
     // user part
     Route::resource('users', 'Backend\UserController');
