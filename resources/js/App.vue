@@ -107,46 +107,147 @@
                         </table>
                     </div>
                 </div>
-                <hr/>
-                <table width="100%">
-                    <tr>
-                        <td class="btn btn-success" v-on:click="placeorder()">Cash</td>
-                        <td class="btn btn-primary" v-on:click="creditorder()">Credit</td>
-                        <td class="btn btn-warning" v-on:click="holdorder()">Hold</td>
-                        <td><a href="pos" class="btn btn-danger">Cancel</a></td>
-                    </tr>
-                </table>
                 <!-- <button class="btn-primary float-right" v-on:click="placeorder()">Order</button> -->
             </div>
 
             <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table  table-striped table-hover table-bordered table-responsive">
+                            <tbody style="background-color: #dbeef3;">
+                            <tr>
+                                <th>Subtotal</th>
+                                <th>{{ subtotal }}</th>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <th>{{ total }}</th>
+                            </tr>
+                            <tr>
+                                <th>Vat</th>
+                                <th>{{ tax }}</th>
+                            </tr>
+                            <tr>
+                                <th>Grand Total</th>
+                                <th>{{ grandTotal }}</th>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th style="background-color: #f2f2f2;">Amount to be paid</th>
+                                <th>{{ grandTotal }}</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+<!--                            <div class="col-md-3"> <button class="btn btn-success" v-on:click="placeorder()">Cash</button> </div>-->
+<!--                            <div class="col-md-3"> <button class="btn btn-primary" v-on:click="creditorder()">Credit</button> </div>-->
+                            <div class="col-md-6" style="padding-right: 0px"> <button class="btn btn-warning btn-block">SUSPEND</button> </div>
+                            <div class="col-md-6" style="padding-left: 0px"> <button class="btn btn-dark btn-block" v-on:click="holdorder()">HOLD</button> </div>
+                            <div class="col-md-12"> <button class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModal">CHECKOUT</button> </div>
+<!--                            <div class="col-md-12"> <a href="pos" class="btn btn-danger btn-block">Cancel</a> </div>-->
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"><strong>COMPLETE PAYMENT PROCESS</strong></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label>Select Customer Name</label>
+                                                <v-select class="style-chooser" placeholder="Select customer" label="name" v-model="order.customer"
+                                                          :options="customers"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>:</label>
+                                                <br>
+                                                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModal">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn text-success btn-block btn-lg" @click="CashOrCard('cash')"><b> CASH </b></button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn text-warning btn-block btn-lg" @click="CashOrCard('card')"> <b>CARD</b> </button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            Subtotal : {{ subtotal }} &nbsp;|&nbsp; Discount : 0.00 &nbsp;|&nbsp; Tax Total : {{ tax }} &nbsp;|&nbsp; Delivery Charge : 0.00
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row" v-if="cash_or_card == 'cash'">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Punch Amount</label>
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Change Amount</label>
+                                                <input class="form-control" :value="Math.ceil(grandTotal)" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Amount Rounded</label>
+                                                <input class="form-control" :value="parseFloat(Math.ceil(grandTotal) - grandTotal).toFixed(2)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" v-if="cash_or_card == 'card'">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Card No</label>
+                                                <input class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Card Type</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Visa
+                                                </label>
+                                                &nbsp;
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    Master
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <button type="button" class="btn btn-primary btn-block btn-lg" @click="payNow()">PAY {{ grandTotal }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <br>
-                <table class="table  table-striped table-hover table-bordered table-responsive">
-                    <tbody style="background-color: #dbeef3;">
-                        <tr>
-                            <th>Subtotal</th>
-                            <th>{{ subtotal }}</th>
-                        </tr>
-                        <tr>
-                            <th>Total</th>
-                            <th>{{ total }}</th>
-                        </tr>
-                        <tr>
-                            <th>Vat</th>
-                            <th>{{ tax }}</th>
-                        </tr>
-                        <tr>
-                            <th>Grand Total</th>
-                            <th>{{ grandTotal }}</th>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th style="background-color: #f2f2f2;">Amount to be paid</th>
-                            <th>{{ grandTotal }}</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                <hr/>
             </div>
         </div>
     </div>
@@ -175,7 +276,9 @@
                     lineItems: [],
                     grandTotal: 0,
                     status: 0
-                }
+                },
+
+                cash_or_card : 'cash',
             }
         },
         created: function () {
@@ -333,6 +436,19 @@
                 return parseFloat((Math.round(floatNumber * 100) / 100).toFixed(2));
             },
 
+            CashOrCard(type) {
+                const _this = this;
+                _this.cash_or_card = type;
+            },
+            payNow() {
+                const _this = this;
+                if (_this.cash_or_card == 'card') {
+                    _this.creditorder();
+                } else {
+                    _this.placeorder();
+                }
+            }
+
         },
         computed: {
             subtotal: function () {
@@ -370,4 +486,16 @@
 .style-chooser .vs__open-indicator {
     fill: #394066;
 }
+
+* {
+    border-radius: 0 !important;
+}
+
+.btn-dark {
+    background: #1b1e21;
+    color: #fff;
+}
+.modal-header .close {
+     margin-top: -19px;
+ }
 </style>

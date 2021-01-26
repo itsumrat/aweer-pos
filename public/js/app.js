@@ -2149,6 +2149,107 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2171,33 +2272,34 @@ __webpack_require__.r(__webpack_exports__);
         lineItems: [],
         grandTotal: 0,
         status: 0
-      }
+      },
+      cash_or_card: 'cash'
     };
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     var requestOne = axios.get('getproductlist');
     var requestTwo = axios.get('getcustomerlist');
     var requestThree = axios.get('getorderlist');
     var requestFour = axios.get('getholdorderlist');
     requestOne.then(function (response) {
-      return _this.items = response.data;
+      return _this2.items = response.data;
     });
     requestTwo.then(function (response) {
-      _this.customers = response.data;
-      _this.order.customer = _this.customers[0];
+      _this2.customers = response.data;
+      _this2.order.customer = _this2.customers[0];
     });
     requestThree.then(function (response) {
-      return _this.orders = response.data;
+      return _this2.orders = response.data;
     });
     requestFour.then(function (response) {
-      return _this.holdorders = response.data;
+      return _this2.holdorders = response.data;
     });
     _app__WEBPACK_IMPORTED_MODULE_0__["bus"].$on('newcustomer', function (data) {
-      _this.c_name = data.name;
-      _this.c_phone = data.phone;
-      _this.order.customer = data;
+      _this2.c_name = data.name;
+      _this2.c_phone = data.phone;
+      _this2.order.customer = data;
     });
   },
   methods: {
@@ -2263,23 +2365,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadhold: function loadhold(holder) {
-      var _this2 = this;
+      var _this3 = this;
 
       // console.log(holder);
       var getholder = axios.get('getsingleorder?id=' + holder.id);
       getholder.then(function (response) {
         // console.log(response);
-        _this2.c_name = response.data.name;
-        _this2.c_phone = response.data.phn;
-        _this2.lineItems = response.data.products;
+        _this3.c_name = response.data.name;
+        _this3.c_phone = response.data.phn;
+        _this3.lineItems = response.data.products;
 
-        _this2.customers.filter(function (i) {
+        _this3.customers.filter(function (i) {
           if (i.phone === response.data.phn) {
-            _this2.order.customer = i;
+            _this3.order.customer = i;
           }
         });
 
-        _this2.order.id = response.data.invoice_no;
+        _this3.order.id = response.data.invoice_no;
       });
     },
     onItemClick: function onItemClick(item) {
@@ -2314,34 +2416,48 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     searchcustomer: function searchcustomer() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.searchcus) {
         this.customers.filter(function (i) {
-          if (i.name.toLowerCase() === _this3.searchcus.toLowerCase() || i.phone === _this3.searchcus) {
-            _this3.c_phone = i.phone;
-            _this3.c_name = i.name;
-            _this3.order.customer = i;
+          if (i.name.toLowerCase() === _this4.searchcus.toLowerCase() || i.phone === _this4.searchcus) {
+            _this4.c_phone = i.phone;
+            _this4.c_name = i.name;
+            _this4.order.customer = i;
           }
         });
       }
     },
     search: function search(event) {
-      var _this4 = this;
+      var _this5 = this;
 
       console.log("Hello"); // console.log(event);
 
       if (this.searchQuery) {
         this.items.filter(function (i) {
-          if (i.code.toLowerCase() === _this4.searchQuery.code.toLowerCase()) {
+          if (i.code.toLowerCase() === _this5.searchQuery.code.toLowerCase()) {
             // if(i.code.toLowerCase() === event.code.toLowerCase()){
-            _this4.onItemClick(i);
+            _this5.onItemClick(i);
           }
         });
       }
     },
     roundToTwoDigitsAfterComma: function roundToTwoDigitsAfterComma(floatNumber) {
       return parseFloat((Math.round(floatNumber * 100) / 100).toFixed(2));
+    },
+    CashOrCard: function CashOrCard(type) {
+      var _this = this;
+
+      _this.cash_or_card = type;
+    },
+    payNow: function payNow() {
+      var _this = this;
+
+      if (_this.cash_or_card == 'card') {
+        _this.creditorder();
+      } else {
+        _this.placeorder();
+      }
     }
   },
   computed: {
@@ -2424,7 +2540,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n.style-chooser .vs__search[data-v-f348271a]::-moz-placeholder {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__search[data-v-f348271a]:-ms-input-placeholder {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__search[data-v-f348271a]::-ms-input-placeholder {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__search[data-v-f348271a]::placeholder,\n.style-chooser .vs__dropdown-toggle[data-v-f348271a],\n.style-chooser .vs__dropdown-menu[data-v-f348271a] {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__clear[data-v-f348271a],\n.style-chooser .vs__open-indicator[data-v-f348271a] {\n    fill: #394066;\n}\n", ""]);
+exports.push([module.i, "\n.style-chooser .vs__search[data-v-f348271a]::-moz-placeholder {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__search[data-v-f348271a]:-ms-input-placeholder {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__search[data-v-f348271a]::-ms-input-placeholder {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__search[data-v-f348271a]::placeholder,\n.style-chooser .vs__dropdown-toggle[data-v-f348271a],\n.style-chooser .vs__dropdown-menu[data-v-f348271a] {\n    background: #dfe5fb;\n    border: none;\n    color: #394066;\n    text-transform: lowercase;\n    font-variant: small-caps;\n}\n.style-chooser .vs__clear[data-v-f348271a],\n.style-chooser .vs__open-indicator[data-v-f348271a] {\n    fill: #394066;\n}\n*[data-v-f348271a] {\n    border-radius: 0 !important;\n}\n.btn-dark[data-v-f348271a] {\n    background: #1b1e21;\n    color: #fff;\n}\n.modal-header .close[data-v-f348271a] {\n     margin-top: -19px;\n}\n", ""]);
 
 // exports
 
@@ -21206,103 +21322,263 @@ var render = function() {
               2
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("table", { attrs: { width: "100%" } }, [
-          _c("tr", [
-            _c(
-              "td",
-              {
-                staticClass: "btn btn-success",
-                on: {
-                  click: function($event) {
-                    return _vm.placeorder()
-                  }
-                }
-              },
-              [_vm._v("Cash")]
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              {
-                staticClass: "btn btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.creditorder()
-                  }
-                }
-              },
-              [_vm._v("Credit")]
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              {
-                staticClass: "btn btn-warning",
-                on: {
-                  click: function($event) {
-                    return _vm.holdorder()
-                  }
-                }
-              },
-              [_vm._v("Hold")]
-            ),
-            _vm._v(" "),
-            _vm._m(5)
-          ])
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "table  table-striped table-hover table-bordered table-responsive"
+              },
+              [
+                _c(
+                  "tbody",
+                  { staticStyle: { "background-color": "#dbeef3" } },
+                  [
+                    _c("tr", [
+                      _c("th", [_vm._v("Subtotal")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.subtotal))])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", [_vm._v("Total")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.total))])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", [_vm._v("Vat")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.tax))])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", [_vm._v("Grand Total")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("tfoot", [
+                  _c("tr", [
+                    _c(
+                      "th",
+                      { staticStyle: { "background-color": "#f2f2f2" } },
+                      [_vm._v("Amount to be paid")]
+                    ),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
+                  ])
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "row" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "col-md-6",
+                  staticStyle: { "padding-left": "0px" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark btn-block",
+                      on: {
+                        click: function($event) {
+                          return _vm.holdorder()
+                        }
+                      }
+                    },
+                    [_vm._v("HOLD")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(6)
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "exampleModal",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "exampleModalLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "modal-dialog", attrs: { role: "document" } },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-10" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Select Customer Name")]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                staticClass: "style-chooser",
+                                attrs: {
+                                  placeholder: "Select customer",
+                                  label: "name",
+                                  options: _vm.customers
+                                },
+                                model: {
+                                  value: _vm.order.customer,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.order, "customer", $$v)
+                                  },
+                                  expression: "order.customer"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(8)
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn text-success btn-block btn-lg",
+                              on: {
+                                click: function($event) {
+                                  return _vm.CashOrCard("cash")
+                                }
+                              }
+                            },
+                            [_c("b", [_vm._v(" CASH ")])]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn text-warning btn-block btn-lg",
+                              on: {
+                                click: function($event) {
+                                  return _vm.CashOrCard("card")
+                                }
+                              }
+                            },
+                            [_c("b", [_vm._v("CARD")])]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-lg-12 text-center" }, [
+                          _vm._v(
+                            "\n                                            Subtotal : " +
+                              _vm._s(_vm.subtotal) +
+                              "  |  Discount : 0.00  |  Tax Total : " +
+                              _vm._s(_vm.tax) +
+                              "  |  Delivery Charge : 0.00\n                                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _vm.cash_or_card == "cash"
+                        ? _c("div", { staticClass: "row" }, [
+                            _vm._m(9),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Change Amount")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { disabled: "" },
+                                  domProps: { value: Math.ceil(_vm.grandTotal) }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Amount Rounded")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  domProps: {
+                                    value: parseFloat(
+                                      Math.ceil(_vm.grandTotal) - _vm.grandTotal
+                                    ).toFixed(2)
+                                  }
+                                })
+                              ])
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.cash_or_card == "card"
+                        ? _c("div", { staticClass: "row" }, [
+                            _vm._m(10),
+                            _vm._v(" "),
+                            _vm._m(11)
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-lg-12" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-block btn-lg",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.payNow()
+                                }
+                              }
+                            },
+                            [_vm._v("PAY " + _vm._s(_vm.grandTotal))]
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c(
-          "table",
-          {
-            staticClass:
-              "table  table-striped table-hover table-bordered table-responsive"
-          },
-          [
-            _c("tbody", { staticStyle: { "background-color": "#dbeef3" } }, [
-              _c("tr", [
-                _c("th", [_vm._v("Subtotal")]),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.subtotal))])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("Total")]),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.total))])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("Vat")]),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.tax))])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("Grand Total")]),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tfoot", [
-              _c("tr", [
-                _c("th", { staticStyle: { "background-color": "#f2f2f2" } }, [
-                  _vm._v("Amount to be paid")
-                ]),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
-              ])
-            ])
-          ]
-        )
+        _c("hr")
       ])
     ])
   ])
@@ -21388,9 +21664,150 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-danger", attrs: { href: "pos" } }, [
-        _vm._v("Cancel")
+    return _c(
+      "div",
+      { staticClass: "col-md-6", staticStyle: { "padding-right": "0px" } },
+      [
+        _c("button", { staticClass: "btn btn-warning btn-block" }, [
+          _vm._v("SUSPEND")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success btn-block",
+          attrs: { "data-toggle": "modal", "data-target": "#exampleModal" }
+        },
+        [_vm._v("CHECKOUT")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_c("strong", [_vm._v("COMPLETE PAYMENT PROCESS")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v(":")]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-info",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#myModal"
+            }
+          },
+          [_vm._v("+")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Punch Amount")]),
+        _vm._v(" "),
+        _c("input", { staticClass: "form-control" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("Card No")]),
+        _vm._v(" "),
+        _c("input", { staticClass: "form-control" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3" }, [
+      _c("label", [_vm._v("Card Type")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { type: "checkbox", value: "", id: "flexCheckDefault" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "form-check-label",
+            attrs: { for: "flexCheckDefault" }
+          },
+          [
+            _vm._v(
+              "\n                                                    Visa\n                                                "
+            )
+          ]
+        ),
+        _vm._v(
+          "\n                                                 \n                                                "
+        ),
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { type: "checkbox", value: "", id: "flexCheckDefault1" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "form-check-label",
+            attrs: { for: "flexCheckDefault1" }
+          },
+          [
+            _vm._v(
+              "\n                                                    Master\n                                                "
+            )
+          ]
+        )
       ])
     ])
   }

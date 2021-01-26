@@ -11,7 +11,7 @@ class OrderController extends Controller
     //
     public function saveorder(Request $req){
 
-        $order = isset($req->order['id']) && $req->order['id']>0? Order::find((int)$req->order['id']): new Order();
+        $order = isset( $req->order['id'] ) && $req->order['id'] > 0 ? Order::find( (int)$req->order['id'] ) : new Order();
     	$order->customer_id = $req->order['customer']['id'];
     	$order->order_details = serialize($req->order['lineItems']);
     	$order->total = $req->order['grandTotal'];
@@ -24,13 +24,13 @@ class OrderController extends Controller
     public function getorderlist(){
 
     	$order = new Order();
-    	
+
     	return $order->getorderlist();
     }
     public function getholdorderlist(){
 
     	$order = new Order();
-    	
+
     	return $order->getholdorderlist();
     }
     public function printinvoice(Request $req){
@@ -49,7 +49,8 @@ class OrderController extends Controller
     	$data['total'] = $jo_data->total;
     	$data['status'] = $jo_data->status;
     	$pdf = PDF::loadView('invoice', $data);
-    	return $pdf->stream('pdf_file.pdf');	
+
+    	return $pdf->stream('pdf_file.pdf');
     }
     public function getSingleOrder(Request $req){
         $order = new Order();
@@ -69,6 +70,6 @@ class OrderController extends Controller
         // $data['total'] = $jo_data->total;
         // $data['status'] = $jo_data->status;
         // $pdf = PDF::loadView('invoice', $data);
-        // return $pdf->stream('pdf_file.pdf');    
+        // return $pdf->stream('pdf_file.pdf');
     }
 }

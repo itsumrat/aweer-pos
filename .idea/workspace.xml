@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8f5f9d1b-b28a-41b0-aa0a-7fde4ef82d9f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pos.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pos.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/invoice.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/invoice.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +142,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lexenter" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -164,7 +162,8 @@
       <updated>1611515628751</updated>
       <workItem from="1611515629810" duration="1836000" />
       <workItem from="1611550717057" duration="22000" />
-      <workItem from="1611585786445" duration="9162000" />
+      <workItem from="1611585786445" duration="10015000" />
+      <workItem from="1611673754163" duration="9722000" />
     </task>
     <servers />
   </component>
@@ -177,9 +176,21 @@
     </state>
     <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1611596001541" />
     <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1611550737473" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1611590787856">
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1611688420943">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1611590787856" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1611688420943" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/resources/js/App.vue</url>
+          <line>46</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
