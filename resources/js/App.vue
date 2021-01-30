@@ -3,12 +3,12 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="row">
-                    <div class="col-md-6">
-                        <label>Select customer name</label>
-                        <v-select class="style-chooser" placeholder="Select customer" label="name" v-model="order.customer"
-                                  :options="customers"/>
-                    </div>
-                    <div class="col-md-6">
+<!--                    <div class="col-md-6">-->
+<!--                        <label>Select customer name</label>-->
+<!--                        <v-select class="style-chooser" placeholder="Select customer" label="name" v-model="order.customer"-->
+<!--                                  :options="customers"/>-->
+<!--                    </div>-->
+                    <div class="col-md-12">
                         <label>Select product name</label>
                         <v-select taggable class="style-chooser" placeholder="Select product" label="code"
                                   @search:blur="search" :options="items" v-model="searchQuery"/>
@@ -20,22 +20,24 @@
                         <table class="table table-striped table-hover table-bordered table-responsive">
                             <thead>
                             <tr>
-                                <th>Item Details</th>
+                                <th>Item Description</th>
+                                <th>UoM</th>
+                                <th>Qty</th>
                                 <th>Unit Price</th>
-                                <th>Quantity</th>
-                                <th>Line Total</th>
+                                <th>Sub Total</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="item in lineItems">
                                 <td>{{ item.item.name }}</td>
-                                <td>{{ item.item.price }}</td>
+                                <td>{{ item.item.unit_name }}</td>
                                 <td>
                                     <span v-if="!item.editing" v-on:dblclick=" toggleEdit(item)">{{ item.numberOfItems }}</span>
                                     <input v-if="item.editing" v-on:blur=" toggleEdit(item)" type="number"
                                            v-model="item.numberOfItems">
                                 </td>
+                                <td>{{ item.item.price }}</td>
                                 <td>{{ item.numberOfItems * item.item.price }}</td>
                                 <td><i class="fa fa-times" v-on:click="removeItem(item)"></i></td>
                             </tr>
@@ -113,8 +115,8 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table  table-striped table-hover table-bordered table-responsive">
-                            <tbody style="background-color: #dbeef3;">
+                        <table class="table table-bordered table-responsive text-uppercase">
+                            <tbody  style="background-color: #f2f2f2;">
                             <tr>
                                 <th>Subtotal</th>
                                 <th>{{ subtotal }}</th>
@@ -132,9 +134,9 @@
                                 <th>{{ grandTotal }}</th>
                             </tr>
                             </tbody>
-                            <tfoot>
+                            <tfoot  style="background-color: #f2f2f2;">
                             <tr>
-                                <th style="background-color: #f2f2f2;">Amount to be paid</th>
+                                <th>Amount to be paid</th>
                                 <th>{{ grandTotal }}</th>
                             </tr>
                             </tfoot>

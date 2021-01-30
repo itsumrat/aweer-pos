@@ -1943,6 +1943,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1971,8 +1975,8 @@ __webpack_require__.r(__webpack_exports__);
         var resp = JSON.stringify(response.data.id);
         _this.customer.id = resp; // console.log(resp);
         // window.location.href = 'order/printinvoice?id='+resp;
-        // window.location.href = 'pos';
 
+        window.location.href = 'customer';
         _app__WEBPACK_IMPORTED_MODULE_0__["bus"].$emit('newcustomer', _this.customer);
       })["catch"](function (e) {
         console.log(e);
@@ -1995,6 +1999,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
 //
 //
 //
@@ -2491,8 +2497,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuetable_2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuetable-2 */ "./node_modules/vuetable-2/dist/vuetable-2.js");
-/* harmony import */ var vuetable_2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuetable_2__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2504,7 +2508,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -20821,7 +20824,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "container" }, [
     _c("table", { staticClass: "table" }, [
       _c("tr", [
         _c("td", [_vm._v("Code:")]),
@@ -21044,7 +21047,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("SUBMIT")]
+            [_vm._v("\n                    SUBMIT\n                ")]
           )
         ])
       ])
@@ -21079,32 +21082,7 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col-md-6" },
-            [
-              _c("label", [_vm._v("Select customer name")]),
-              _vm._v(" "),
-              _c("v-select", {
-                staticClass: "style-chooser",
-                attrs: {
-                  placeholder: "Select customer",
-                  label: "name",
-                  options: _vm.customers
-                },
-                model: {
-                  value: _vm.order.customer,
-                  callback: function($$v) {
-                    _vm.$set(_vm.order, "customer", $$v)
-                  },
-                  expression: "order.customer"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-6" },
+            { staticClass: "col-md-12" },
             [
               _c("label", [_vm._v("Select product name")]),
               _vm._v(" "),
@@ -21149,7 +21127,7 @@ var render = function() {
                     return _c("tr", [
                       _c("td", [_vm._v(_vm._s(item.item.name))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.item.price))]),
+                      _c("td", [_vm._v(_vm._s(item.item.unit_name))]),
                       _vm._v(" "),
                       _c("td", [
                         !item.editing
@@ -21196,6 +21174,8 @@ var render = function() {
                             })
                           : _vm._e()
                       ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.item.price))]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(_vm._s(item.numberOfItems * item.item.price))
@@ -21332,12 +21312,12 @@ var render = function() {
               "table",
               {
                 staticClass:
-                  "table  table-striped table-hover table-bordered table-responsive"
+                  "table table-bordered table-responsive text-uppercase"
               },
               [
                 _c(
                   "tbody",
-                  { staticStyle: { "background-color": "#dbeef3" } },
+                  { staticStyle: { "background-color": "#f2f2f2" } },
                   [
                     _c("tr", [
                       _c("th", [_vm._v("Subtotal")]),
@@ -21365,17 +21345,17 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("tfoot", [
-                  _c("tr", [
-                    _c(
-                      "th",
-                      { staticStyle: { "background-color": "#f2f2f2" } },
-                      [_vm._v("Amount to be paid")]
-                    ),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
-                  ])
-                ])
+                _c(
+                  "tfoot",
+                  { staticStyle: { "background-color": "#f2f2f2" } },
+                  [
+                    _c("tr", [
+                      _c("th", [_vm._v("Amount to be paid")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.grandTotal))])
+                    ])
+                  ]
+                )
               ]
             )
           ]),
@@ -21590,13 +21570,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Item Details")]),
+        _c("th", [_vm._v("Item Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("UoM")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Qty")]),
         _vm._v(" "),
         _c("th", [_vm._v("Unit Price")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Quantity")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Line Total")]),
+        _c("th", [_vm._v("Sub Total")]),
         _vm._v(" "),
         _c("th")
       ])
@@ -34317,7 +34299,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddCustomer_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AddCustomer.vue */ "./resources/js/AddCustomer.vue");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vuetable_2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetable-2 */ "./node_modules/vuetable-2/dist/vuetable-2.js");
+/* harmony import */ var vuetable_2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vuetable_2__WEBPACK_IMPORTED_MODULE_5__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -34328,6 +34313,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('v-select', vue_select__WEB
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('customerapp', _CustomerApp_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('app', _App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('addcustomer', _AddCustomer_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vuetable', vuetable_2__WEBPACK_IMPORTED_MODULE_5___default.a);
 var bus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#mother' // render: h => h(App)

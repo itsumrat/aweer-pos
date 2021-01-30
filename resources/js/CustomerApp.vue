@@ -10,9 +10,8 @@
 	</div>
 </template>
 <script>
-import Vuetable from 'vuetable-2'
-export default{
+    export default{
 
 
-};
+    };
 </script>

@@ -21,10 +21,10 @@
       </div>
     </nav>
     <div id="mother">
+        <addcustomer></addcustomer>
       <customerapp></customerapp>
-      <addcustomer></addcustomer>
     </div>
-    
-    <script src="{{URL::to('public/js/app.js')}}"></script>
+
+    <script src="{{asset('js/app.js')}}"></script>
   </body>
 </html>
