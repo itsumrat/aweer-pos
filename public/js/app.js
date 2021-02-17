@@ -1947,6 +1947,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1975,8 +1983,8 @@ __webpack_require__.r(__webpack_exports__);
         var resp = JSON.stringify(response.data.id);
         _this.customer.id = resp; // console.log(resp);
         // window.location.href = 'order/printinvoice?id='+resp;
+        //window.location.href = 'customer';
 
-        window.location.href = 'customer';
         _app__WEBPACK_IMPORTED_MODULE_0__["bus"].$emit('newcustomer', _this.customer);
       })["catch"](function (e) {
         console.log(e);
@@ -2256,6 +2264,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2277,7 +2286,9 @@ __webpack_require__.r(__webpack_exports__);
         customer: null,
         lineItems: [],
         grandTotal: 0,
-        status: 0
+        status: 0,
+        punch_amount: 0,
+        change_amount: 0
       },
       cash_or_card: 'cash'
     };
@@ -20850,8 +20861,10 @@ var render = function() {
               }
             }
           })
-        ]),
-        _vm._v(" "),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
         _c("td", [_vm._v("Email:")]),
         _vm._v(" "),
         _c("td", [
@@ -20902,8 +20915,10 @@ var render = function() {
               }
             }
           })
-        ]),
-        _vm._v(" "),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
         _c("td", [_vm._v("City")]),
         _vm._v(" "),
         _c("td", [
@@ -20954,8 +20969,10 @@ var render = function() {
               }
             }
           })
-        ]),
-        _vm._v(" "),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
         _c("td", [_vm._v("Country")]),
         _vm._v(" "),
         _c("td", [
@@ -21006,8 +21023,10 @@ var render = function() {
               }
             }
           })
-        ]),
-        _vm._v(" "),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
         _c("td", [_vm._v("Type")]),
         _vm._v(" "),
         _c("td", [
@@ -21492,7 +21511,37 @@ var render = function() {
                       _vm._v(" "),
                       _vm.cash_or_card == "cash"
                         ? _c("div", { staticClass: "row" }, [
-                            _vm._m(9),
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Punch Amount")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.order.punch_amount,
+                                      expression: "order.punch_amount"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "number" },
+                                  domProps: { value: _vm.order.punch_amount },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.order,
+                                        "punch_amount",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-4" }, [
                               _c("div", { staticClass: "form-group" }, [
@@ -21501,7 +21550,11 @@ var render = function() {
                                 _c("input", {
                                   staticClass: "form-control",
                                   attrs: { disabled: "" },
-                                  domProps: { value: Math.ceil(_vm.grandTotal) }
+                                  domProps: {
+                                    value:
+                                      Math.round(_vm.grandTotal) -
+                                      _vm.order.punch_amount
+                                  }
                                 })
                               ])
                             ]),
@@ -21513,9 +21566,7 @@ var render = function() {
                                 _c("input", {
                                   staticClass: "form-control",
                                   domProps: {
-                                    value: parseFloat(
-                                      Math.ceil(_vm.grandTotal) - _vm.grandTotal
-                                    ).toFixed(2)
+                                    value: Math.round(_vm.grandTotal)
                                   }
                                 })
                               ])
@@ -21525,9 +21576,9 @@ var render = function() {
                       _vm._v(" "),
                       _vm.cash_or_card == "card"
                         ? _c("div", { staticClass: "row" }, [
-                            _vm._m(10),
+                            _vm._m(9),
                             _vm._v(" "),
-                            _vm._m(11)
+                            _vm._m(10)
                           ])
                         : _vm._e(),
                       _vm._v(" "),
@@ -21544,7 +21595,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("PAY " + _vm._s(_vm.grandTotal))]
+                            [
+                              _vm._v(
+                                "PAY " + _vm._s(Math.round(_vm.grandTotal))
+                              )
+                            ]
                           )
                         ])
                       ])
@@ -21718,18 +21773,6 @@ var staticRenderFns = [
           },
           [_vm._v("+")]
         )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Punch Amount")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control" })
       ])
     ])
   },

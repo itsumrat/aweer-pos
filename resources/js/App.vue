@@ -199,19 +199,20 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Punch Amount</label>
-                                                <input class="form-control">
+                                                <input type="number" class="form-control" v-model="order.punch_amount">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Change Amount</label>
-                                                <input class="form-control" :value="Math.ceil(grandTotal)" disabled>
+                                                <input class="form-control" :value="Math.round(grandTotal) - order.punch_amount" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Amount Rounded</label>
-                                                <input class="form-control" :value="parseFloat(Math.ceil(grandTotal) - grandTotal).toFixed(2)">
+                                                <input class="form-control" :value="Math.round(grandTotal)">
+<!--                                                <input class="form-control" :value="parseFloat(Math.ceil(grandTotal) - grandTotal).toFixed(2)">-->
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +241,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <button type="button" class="btn btn-primary btn-block btn-lg" @click="payNow()">PAY {{ grandTotal }}</button>
+                                            <button type="button" class="btn btn-primary btn-block btn-lg" @click="payNow()">PAY {{ Math.round(grandTotal) }}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -277,10 +278,13 @@
                     customer: null,
                     lineItems: [],
                     grandTotal: 0,
-                    status: 0
+                    status: 0,
+                    punch_amount : 0,
+                    change_amount : 0,
                 },
 
                 cash_or_card : 'cash',
+
             }
         },
         created: function () {
